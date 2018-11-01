@@ -430,7 +430,7 @@ public class Mapping {
 		double previousTimeOurNew = 0;
 		double previousTimeOur0 = 0;
 		double previousTimeOurNewBig = 0;
-		int numberVMOur, numberVMOurNew;
+		int numberVMOur, numberVMOurNew, numberVMOur0, numberVMOurNewBig;
 
 		double timeArrive = 0, load = 0, numberVMArrive = 0, timeAcceptedOur = 0, utilOur = 0, numberVMAcceptedOur = 0,
 				timeAcceptedGH = 0, utilGH = 0, numberVMAcceptedGH = 0, timeAcceptedSN = 0, utilSN = 0,
@@ -447,6 +447,7 @@ public class Mapping {
 			if (timeCurrent > timeWindow) {
 				load = 100 * (timeArrive / timeWindow) / C;
 				utilOur = 100 * (timeAcceptedOur / timeWindow) / C;
+				utilOur0 = 100 * (timeAcceptedOur0 / timeWindow) / C;
 				utilOurNew = 100 * (timeAcceptedOurNew / timeWindow) / C;
 				utilOurNewBig = 100 * (timeAcceptedOurNewBig / timeWindow) / C;
 				break;
@@ -454,17 +455,20 @@ public class Mapping {
 
 			// Calculate Power
 			powerOur += powerEdgeOur * (timeCurrent - previousTimeOur);
-			
+			powerOur0 += powerEdgeOur0 * (timeCurrent - previousTimeOur0);
 			powerOurK4 += powerEdgeOurK4 * (timeCurrent - previousTimeOur);
 			powerOurK6_1 += powerEdgeOurK6_1 * (timeCurrent - previousTimeOur);
 			powerOurK6_2 += powerEdgeOurK6_2 * (timeCurrent - previousTimeOur);
 			powerOurK8 += powerEdgeOurK8 * (timeCurrent - previousTimeOur);
 
 			powerOurNewSum += powerEdgeOurNew * (timeCurrent - previousTimeOurNew);
-
+			powerOurNewBig += powerEdgeOurNewBig * (timeCurrent - previousTimeOurNewBig);
 			// So VM dang duoc map toi thoi diem hien tai
 			numberVMOur = getNumVmAlive(listMapping);
 			numberVMOurNew = getNumVmAlive(listMappingNew);
+			numberVMOur0 = getNumVmAlive(listMapping0);
+			numberVMOurNewBig = getNumVmAlive(listMappingNewBig);
+
 
 			if (numberVMOur != 0) {
 				powerOurNew += (powerEdgeOur * (timeCurrent - previousTimeOur)) / listMapping.size();
