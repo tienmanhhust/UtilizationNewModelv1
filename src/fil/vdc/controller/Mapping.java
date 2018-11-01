@@ -418,7 +418,9 @@ public class Mapping {
 		listVDCSort = sortMapTime(tmplistVDCSort);
 		// System.out.println("Size: " + listVDCSorti .size());
 		double powerEdgeOur = 0;
+		double powerEdgeOur0 = 0;
 		double powerEdgeOurNew = 0;
+		double powerEdgeOurNewBig = 0;
 		double powerEdgeOurK4 = 0;
 		double powerEdgeOurK6_1 = 0;
 		double powerEdgeOurK6_2 = 0;
@@ -426,15 +428,16 @@ public class Mapping {
 
 		double previousTimeOur = 0;
 		double previousTimeOurNew = 0;
-
+		double previousTimeOur0 = 0;
+		double previousTimeOurNewBig = 0;
 		int numberVMOur, numberVMOurNew;
 
 		double timeArrive = 0, load = 0, numberVMArrive = 0, timeAcceptedOur = 0, utilOur = 0, numberVMAcceptedOur = 0,
 				timeAcceptedGH = 0, utilGH = 0, numberVMAcceptedGH = 0, timeAcceptedSN = 0, utilSN = 0,
 				numberVMAcceptedSN = 0, timeAcceptedMig = 0, utilMig = 0, numberVMAcceptedMig = 0, timeAcceptedJoin = 0,
 				utilJoin = 0, numberVMAcceptedJoin = 0, timeAcceptedLeave = 0, utilLeave = 0, numberVMAcceptedLeave = 0,
-				timeAcceptedMix = 0, utilMix = 0, numberVMAcceptedMix = 0, timeAcceptedOurNew = 0, timeArriveNew = 0,
-				numberVMArriveNew = 0, utilOurNew = 0, numberVMAcceptedOurNew = 0;
+				timeAcceptedMix = 0, utilMix = 0, numberVMAcceptedMix = 0, timeAcceptedOurNew = 0, timeAcceptedOur0 = 0 , timeAcceptedOurNewBig= 0, timeArriveNew = 0,
+				numberVMArriveNew = 0, utilOurNew = 0, utilOurNewBig =0, utilOur0 = 0,numberVMAcceptedOurNew = 0, numberVMAcceptedOur0= 0, numberVMAcceptedOurNewBig = 0;
 		timeNext = 2;
 		C = 3 * (K * K * K);
 
@@ -445,12 +448,13 @@ public class Mapping {
 				load = 100 * (timeArrive / timeWindow) / C;
 				utilOur = 100 * (timeAcceptedOur / timeWindow) / C;
 				utilOurNew = 100 * (timeAcceptedOurNew / timeWindow) / C;
+				utilOurNewBig = 100 * (timeAcceptedOurNewBig / timeWindow) / C;
 				break;
 			}
 
 			// Calculate Power
 			powerOur += powerEdgeOur * (timeCurrent - previousTimeOur);
-
+			
 			powerOurK4 += powerEdgeOurK4 * (timeCurrent - previousTimeOur);
 			powerOurK6_1 += powerEdgeOurK6_1 * (timeCurrent - previousTimeOur);
 			powerOurK6_2 += powerEdgeOurK6_2 * (timeCurrent - previousTimeOur);
