@@ -41,7 +41,7 @@ public class MainController {
 //		endLoadPercent = Integer.parseInt(args[3]);
 //		numberVMMax = Integer.parseInt(args[4]);
 		
-		N = 30;
+		N = 1;
 		startLoadPercent= 10;
 		stepPercent=10;
 		endLoadPercent = 100;

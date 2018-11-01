@@ -55,15 +55,32 @@ public class Mapping {
 	private Topology topo1;
 	private Topology topo2;
 	private Topology topo3;
+	////
+	private FatTree fatTree00;
+	private FatTree fatTree01;
+	private FatTree fatTree02;
+	private FatTree fatTree03;
 
+	private Topology topo00;
+	private Topology topo01;
+	private Topology topo02;
+	private Topology topo03;
+	////
 	private Topology topoNew;
 	private FatTree fatTreeNew;
-
+	
+	private Topology topoNewBig;
+	private FatTree fatTreeNewBig;
+	
 	private Map<VDCRequest, Topology> resultTopo;
 	private Map<VDCRequest, Topology> resultTopoNew;
 
+	private Map<VDCRequest, Topology> resultTopo0;
+	private Map<VDCRequest, Topology> resultTopoNewBig;
+	
 	private Map<Integer, Topology> listTopo;
-
+	private Map<Integer, Topology> listTopo0;
+	
 	private Map<Topology, SubstrateSwitch> listCoreToSubTopo;
 	private Map<Topology, SubstrateSwitch> listCoreToSubTopoNew;
 
@@ -72,16 +89,29 @@ public class Mapping {
 
 	private VMMapping vmMapping;
 	private LinkMapping linkMapping;
-
+	
+	private VMMapping vmMapping0;
+	private LinkMapping linkMapping0;
+	
 	private VMMapping vmMappingNew;
 	private LinkMapping linkMappingNew;
 
+	private VMMapping vmMappingNewBig;
+	private LinkMapping linkMappingNewBig;
+	
 	private Map<Integer, Map<VirtualMachine, PhysicalServer>> mappingResults;
 	private Map<Integer, Map<VirtualMachine, PhysicalServer>> mappingResultsNew;
 
+	private Map<Integer, Map<VirtualMachine, PhysicalServer>> mappingResults0;
+	private Map<Integer, Map<VirtualMachine, PhysicalServer>> mappingResultsNewBig;
+	
+	
 	private Map<Integer, Map<LinkedList<SubstrateSwitch>, Double>> linkMappingResults;
 	private Map<Integer, Map<LinkedList<SubstrateSwitch>, Double>> linkMappingResultsNew;
 
+	private Map<Integer, Map<LinkedList<SubstrateSwitch>, Double>> linkMappingResults0;
+	private Map<Integer, Map<LinkedList<SubstrateSwitch>, Double>> linkMappingResultsNewBig;
+	
 	private Map<Integer, Map<LinkedList<SubstrateSwitch>, Double>> linkMappingResultsCore;
 	private Map<Integer, Map<LinkedList<SubstrateSwitch>, Double>> linkMappingResultsCoreNew;
 
@@ -93,17 +123,27 @@ public class Mapping {
 	private Map<VDCRequest, Topology> tempMappingNew;
 
 	private Map<Topology, FatTree> listFatTree;
+	private Map<Topology, FatTree> listFatTreeBig;
+	private Map<Topology, FatTree> listFatTree0;
 	private Map<Topology, FatTree> listFatTreeNew;
 
 	private Map<Integer, Map<LinkPhyEdge, Double>> linkPhyEdge;
 	private Map<Integer, Map<LinkPhyEdge, Double>> linkPhyEdgeNew;
 
+	private Map<Integer, Map<LinkPhyEdge, Double>> linkPhyEdge0;
+	private Map<Integer, Map<LinkPhyEdge, Double>> linkPhyEdgeNewBig;
+	
 	private double numSuccess;
 	private double numSuccessNew;
-
+	private double numSuccess0;
+	private double numSuccessNewBig;
+	
 	private LinkedList<Integer> idVDCIteratored;
 	private LinkedList<Integer> idVDCIteratoredNew;
 
+	private LinkedList<Integer> idVDCIteratored0;
+	private LinkedList<Integer> idVDCIteratoredNewBig;
+	
 	private double powerOur;
 	private double powerOurNewSum;
 	private double powerOurK4;
@@ -113,9 +153,14 @@ public class Mapping {
 
 	private double powerOurNew;
 	private double powerOurNewNew;
-
+	
+	private double powerOur0;
+	private double powerOurNewBig;
+	
 	private LinkedList<VDCRequest> listMapping;
 	private LinkedList<VDCRequest> listMappingNew;
+	private LinkedList<VDCRequest> listMapping0;
+	private LinkedList<VDCRequest> listMappingNewBig;
 	private SubstrateNetwork coreTopo;
 	private SubstrateNetwork coreTopoNew;
 	private double[] acceptCentralized;
@@ -125,16 +170,30 @@ public class Mapping {
 
 	public Mapping() {
 		listTopo = new HashMap<>();
+		listTopo0 = new HashMap<>();
+		
 		listCoreToSubTopo = new HashMap<>();
 		fatTree = new FatTree();
-
+		fatTree00 = new FatTree();
+		
 		topo = new Topology();
 		topoNew = new Topology();
 
+		topo00 = new Topology();
+		topo01 = new Topology();
+		topo02 = new Topology();
+		topo03 = new Topology();
+		topoNewBig = new Topology();
+		
 		fatTree1 = new FatTree();
 		fatTree2 = new FatTree();
 		fatTree3 = new FatTree();
 		fatTreeNew = new FatTree();
+		
+		fatTree01 = new FatTree();
+		fatTree02 = new FatTree();
+		fatTree03 = new FatTree();
+		fatTreeNewBig = new FatTree();
 
 		topo1 = new Topology();
 		topo2 = new Topology();
@@ -147,14 +206,29 @@ public class Mapping {
 		genVDC = new GenVDCRequest();
 		mappingResults = new HashMap<>();
 		mappingResultsNew = new HashMap<>();
+		mappingResults0 = new HashMap<>();
+		mappingResultsNewBig = new HashMap<>();
+		
 		numSuccess = 0;
+		numSuccess0 = 0;
+		numSuccessNew = 0;
+		numSuccessNewBig = 0;
 		idVDCIteratored = new LinkedList<>();
 		idVDCIteratoredNew = new LinkedList<>();
-
+		idVDCIteratored0 = new LinkedList<>();
+		idVDCIteratoredNewBig = new LinkedList<>();
+		
 		listMapping = new LinkedList<>();
 		listMappingNew = new LinkedList<>();
-
+		listMapping0 = new LinkedList<>();
+		listMappingNewBig = new LinkedList<>();
 		linkPhyEdge = new HashMap<>();
+		linkPhyEdge0 = new HashMap<>();
+		linkPhyEdgeNewBig = new HashMap<>();
+		
+		powerOur0 = 0;
+		powerOurNewBig = 0;
+		
 		powerOur = 0;
 		powerOurNewSum = 0;
 		powerOurNew = 0;
@@ -166,20 +240,29 @@ public class Mapping {
 		linkMappingResults = new HashMap<>();
 		linkMappingResultsNew = new HashMap<>();
 
+		linkMappingResults0 = new HashMap<>();
+		linkMappingResultsNewBig = new HashMap<>();
+		
+		
 		listPathMapped = new HashMap<>();
 		listPhyEdgeMapped = new HashMap<>();
 		tempMapping = new HashMap<>();
 		tempMappingNew = new HashMap<>();
 		listFatTree = new HashMap<>();
+		listFatTree0 = new HashMap<>();
+		listFatTreeBig = new HashMap<>();
+		
 		resultTopo = new HashMap<>();
 		resultTopoNew = new HashMap<>();
-
+		resultTopo0 = new HashMap<>();
+		resultTopoNewBig = new HashMap<>();
 		linkMappingResultsCore = new HashMap<>();
 		linkMappingResultsCoreNew = new HashMap<>();
 		listCoreToSubTopoNew = new HashMap<>();
 		listSubSwitchToCore = new HashMap<>();
 
 		linkPhyEdgeNew = new HashMap<>();
+		linkPhyEdgeNewBig = new HashMap<>();
 		acceptCentralized = new double[20];
 		acceptDistributed = new double[20];
 		numberCentralized = new double[20];
@@ -188,12 +271,7 @@ public class Mapping {
 
 	public void run(int percent, int numberVMMax) {
 
-		for (int i = 0; i < acceptCentralized.length; i++) {
-			acceptCentralized[i] = 0.0;
-			acceptDistributed[i] = 0.0;
-			numberCentralized[i] = 0.0;
-			numberDistributed[i] = 0.0;
-		}
+
 		// For Distributed
 		// Generate environment simulation
 		topo = fatTree.genFatTree(8);
@@ -201,12 +279,23 @@ public class Mapping {
 		topo2 = fatTree2.genFatTree(6);
 		topo3 = fatTree3.genFatTree(4);
 		topoNew = fatTreeNew.genFatTree(10);
-
+		
+		topo00 = fatTree.genFatTree(8);
+		topo01 = fatTree1.genFatTree(6);
+		topo02 = fatTree2.genFatTree(6);
+		topo03 = fatTree3.genFatTree(4);
+		topoNewBig = fatTreeNew.genFatTree(10);
 		listFatTree.put(topo, fatTree);
 		listFatTree.put(topo1, fatTree1);
 		listFatTree.put(topo2, fatTree2);
 		listFatTree.put(topo3, fatTree3);
 
+		listFatTree0.put(topo00, fatTree00);
+		listFatTree0.put(topo01, fatTree01);
+		listFatTree0.put(topo02, fatTree02);
+		listFatTree0.put(topo03, fatTree03);
+		
+		
 		GenSubstrateNetwork genSub = new GenSubstrateNetwork(8, 0.5, 0.5);
 		GenSubstrateNetwork genSubNew = new GenSubstrateNetwork(8, 0.5, 0.5);
 		coreTopo = genSub.genAbileneTopo();
@@ -378,7 +467,7 @@ public class Mapping {
 
 			}
 			if (numberVMOurNew != 0) {
-				powerOurNewNew += (powerEdgeOur * (timeCurrent - previousTimeOur)) / listMappingNew.size();
+				powerOurNewNew += (powerEdgeOurNew * (timeCurrent - previousTimeOur)) / listMappingNew.size();
 			}
 			// sort VDC by priority (current, leave-> join and priority is
 			// number of VM in vdc)
@@ -463,7 +552,7 @@ public class Mapping {
 		// System.out.println("Number VM " + numberVMAcceptedOur + " " +
 		// numberVMArrive);
 		MainController.resultAcceptionRate.info("" + load + "\t" + utilOur + "\t" + utilOurNew +  "\t" + numberVMAcceptedOur / numberVMArrive
-				+ "\t" + numberVMAcceptedOurNew / numberVMArrive);
+				+ "\t" + numberVMAcceptedOurNew / numberVMArrive+"/t" +getNumSuccess()*1.0/listVDCRequest.size()+"/t" + getNumSuccessNew()*1.0/listVDCRequest.size());
 		MainController.resultPowerPerVDC
 				.info("" + load + "\t" + utilOur + "\t" + getPowerOurNew() + "\t" + getPowerOurNewNew());
 		MainController.resultPowerConsumption.info(
@@ -1702,6 +1791,10 @@ public class Mapping {
 
 	public void setResultTopo(Map<VDCRequest, Topology> resultTopo) {
 		this.resultTopo = resultTopo;
+	}
+
+	public double getNumSuccessNew() {
+		return numSuccessNew;
 	}
 
 	public boolean isSaved(LinkedList<SubstrateSwitch> oldPath, LinkedList<SubstrateSwitch> newPath, double bandwidth,
