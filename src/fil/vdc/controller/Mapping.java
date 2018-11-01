@@ -477,6 +477,13 @@ public class Mapping {
 			if (numberVMOurNew != 0) {
 				powerOurNewNew += (powerEdgeOurNew * (timeCurrent - previousTimeOur)) / listMappingNew.size();
 			}
+			if (numberVMOur0 != 0) {
+				powerOurNew += (powerEdgeOur * (timeCurrent - previousTimeOur)) / listMapping.size();
+
+			}
+			if (numberVMOurNewBig != 0) {
+				powerOurNewBig += (powerEdgeOurNewBig * (timeCurrent - previousTimeOur)) / listMappingNewBig.size();
+			}
 			// sort VDC by priority (current, leave-> join and priority is
 			// number of VM in vdc)
 			sortListVDCByNoVM(listVDC, timeCurrent);
