@@ -78,7 +78,227 @@ public class LinkMapping {
 		isPrint = false;
 
 	}
+	
+	public Topology linkMappingOurAlgorithmOld(Topology topo, VDCRequest vdc,
+			Map<VirtualMachine, PhysicalServer> resultsVMMapping) {
+		// get all Vlink and sort by bandwidth request
+		double powerTemp = getPower(topo);
+		listVirLink = vdc.getListVirLink();
+		sortVirLinkDecBandwidth();
+		// iterator vLink list and convert to start edge switch and end edge
+		// switch
+		LinkedList<SubstrateLink> listLinkBandwidth = topo.getLinkBandwidth();
+		LinkedList<LinkPhyEdge> listPhyEdge = topo.getListLinkPhyEdge();
+		LinkedList<SubstrateSwitch> listPhySwitch = topo.getListPhySwitch();
+		for (VirtualLink vLink : listVirLink) {
+			// get source and destination Virtual Machine of Virtual Link
+			VirtualMachine vm1 = vLink.getsVM();
+			VirtualMachine vm2 = vLink.getdVM();
 
+			// get Physical Servers, which host source and destination Virtual
+			// Machine
+			PhysicalServer phy1 = resultsVMMapping.get(vm1);
+			PhysicalServer phy2 = resultsVMMapping.get(vm2);
+
+			// get Edge Switch, which connects with Physical Server
+			Map<PhysicalServer, SubstrateSwitch> listLinkServers = topo.getListLinksServer();
+			SubstrateSwitch edgeSwitch1 = listLinkServers.get(phy1);
+			SubstrateSwitch edgeSwitch2 = listLinkServers.get(phy2);
+
+			// check bandwidth Phy-Edge, if not satisfied break -> fail
+			if (!checkPhyEdge(topo, phy1, edgeSwitch1, phy2, edgeSwitch2, vLink.getBandwidthRequest(),listPhyEdge))
+			{
+				break;
+//				continue;
+			}
+			// get list agg switch connect to start edge switch, sort by state,
+			// bandwidth
+			Map<SubstrateSwitch, LinkedList<SubstrateSwitch>> listAggConnectEdge = topo.getListAggConnectEdge();
+			Map<SubstrateSwitch, LinkedList<SubstrateSwitch>> listCoreConnectAgg = topo.getListCoreConnectAgg();
+			LinkedList<SubstrateSwitch> listAggConnectStartEdge = new LinkedList<>();
+			LinkedList<SubstrateSwitch> listAggConnectEndEdge = new LinkedList<>();
+			
+			LinkPhyEdge phy2Edge1=null, phy2Edge2=null;
+			int countP2E = 0;
+			for(int i=0; i<listPhyEdge.size();i++) {
+				LinkPhyEdge link = listPhyEdge.get(i);
+				if(link.getEdgeSwitch().equals(edgeSwitch1)&&link.getPhysicalServer().equals(phy1)) {
+					phy2Edge1 = link;
+					countP2E++;
+				}
+				if(link.getEdgeSwitch().equals(edgeSwitch2)&&link.getPhysicalServer().equals(phy2)) {
+					phy2Edge2 = link;
+					countP2E++;
+				}
+				if(countP2E==2)
+					break;
+			}
+			
+			// near groups		
+			if (edgeSwitch1.equals(edgeSwitch2)) {
+				///////////////////////////////////////////////////////
+				LinkedList<LinkPhyEdge> phyEdge = new LinkedList<>();
+				phyEdge.add(phy2Edge1);
+				phyEdge.add(phy2Edge2);
+				listPhyEdgeMapped.put(vLink, phyEdge);
+				phy2Edge1.setBandwidth(phy2Edge1.getBandwidth()-vLink.getBandwidthRequest());
+				phy2Edge2.setBandwidth(phy2Edge2.getBandwidth()-vLink.getBandwidthRequest());
+				edgeSwitch1.setPort(getSwitchFromID(listPhySwitch, phy1.getName()), vLink.getBandwidthRequest());
+				edgeSwitch1.setPort(getSwitchFromID(listPhySwitch, phy2.getName()), vLink.getBandwidthRequest());
+				if(listBandwidthPhyEdge.containsKey(phy2Edge1)){
+					listBandwidthPhyEdge.put(phy2Edge1, listBandwidthPhyEdge.get(phy2Edge1) + vLink.getBandwidthRequest());
+				} else {
+					listBandwidthPhyEdge.put(phy2Edge1, vLink.getBandwidthRequest());
+				}
+				
+				if(listBandwidthPhyEdge.containsKey(phy2Edge2)) {
+					listBandwidthPhyEdge.put(phy2Edge2, listBandwidthPhyEdge.get(phy2Edge2) + vLink.getBandwidthRequest());
+				}else {
+					listBandwidthPhyEdge.put(phy2Edge2, vLink.getBandwidthRequest());
+				}
+				
+				LinkedList<SubstrateSwitch> list = new LinkedList<>();
+				list.add(edgeSwitch1);
+				double temp=0;
+				if(resultsLinkMapping.containsKey(list))
+					temp= resultsLinkMapping.get(list);
+
+				resultsLinkMapping.put(list, vLink.getBandwidthRequest()+temp);
+				listPathMapped.put(vLink, list);
+				numLinkSuccessOur++;
+			} else {
+				for (Entry<SubstrateSwitch, LinkedList<SubstrateSwitch>> entry : listAggConnectEdge.entrySet()) {
+					if (entry.getKey().equals(edgeSwitch1))
+						listAggConnectStartEdge = entry.getValue();
+					if (entry.getKey().equals(edgeSwitch2))
+						listAggConnectEndEdge = entry.getValue();
+				}
+				// sort list Agg
+				listAggConnectStartEdge = sortListSwitch(listAggConnectStartEdge);
+				listAggConnectEndEdge = sortListSwitch(listAggConnectEndEdge);
+
+				// check middle groups
+				if (listAggConnectStartEdge.equals(listAggConnectEndEdge)) {
+					for (SubstrateSwitch sw : listAggConnectStartEdge) {
+						LinkedList<SubstrateSwitch> path = new LinkedList<>();
+						path.add(edgeSwitch1);
+						path.add(sw);
+						path.add(edgeSwitch2);
+						if (vLink.getBandwidthRequest() > getBanwidthOfPath(path, listLinkBandwidth))
+							continue;
+						else {
+							double temp=0;
+							listPathMapped.put(vLink, path);
+							if(resultsLinkMapping.containsKey(path))
+								temp= resultsLinkMapping.get(path);
+							resultsLinkMapping.put(path, vLink.getBandwidthRequest()+temp);
+							listLinkBandwidth = MapLink(path, listLinkBandwidth, vLink.getBandwidthRequest());
+							numLinkSuccessOur++;
+
+							LinkedList<LinkPhyEdge> phyEdge = new LinkedList<>();
+							phyEdge.add(phy2Edge1);
+							phyEdge.add(phy2Edge2);
+							listPhyEdgeMapped.put(vLink, phyEdge);
+							phy2Edge1.setBandwidth(phy2Edge1.getBandwidth()-vLink.getBandwidthRequest());
+							phy2Edge2.setBandwidth(phy2Edge2.getBandwidth()-vLink.getBandwidthRequest());
+							edgeSwitch1.setPort(getSwitchFromID(listPhySwitch, phy1.getName()), vLink.getBandwidthRequest());
+							edgeSwitch2.setPort(getSwitchFromID(listPhySwitch, phy2.getName()), vLink.getBandwidthRequest());
+							if(listBandwidthPhyEdge.containsKey(phy2Edge1)){
+								listBandwidthPhyEdge.put(phy2Edge1, listBandwidthPhyEdge.get(phy2Edge1) + vLink.getBandwidthRequest());
+							} else {
+								listBandwidthPhyEdge.put(phy2Edge1, vLink.getBandwidthRequest());
+							}
+							
+							if(listBandwidthPhyEdge.containsKey(phy2Edge2)) {
+								listBandwidthPhyEdge.put(phy2Edge2, listBandwidthPhyEdge.get(phy2Edge2) + vLink.getBandwidthRequest());
+							}else {
+								listBandwidthPhyEdge.put(phy2Edge2, vLink.getBandwidthRequest());
+							}
+							
+							break;
+						}
+					}
+				} else {
+					// far groups
+					boolean check = false;
+					for (int i = 0; i < listAggConnectStartEdge.size(); i++) {
+						// choose pair edge switchs
+						SubstrateSwitch startAggSwitch = listAggConnectStartEdge.get(i);
+						SubstrateSwitch endAggSwitch = listAggConnectEndEdge.get(i);
+
+						// get list core switch
+
+						LinkedList<SubstrateSwitch> listCoreSwitchConnectPair = new LinkedList<>();
+						for (Entry<SubstrateSwitch, LinkedList<SubstrateSwitch>> entry : listCoreConnectAgg.entrySet())
+							if (entry.getKey().equals(startAggSwitch))
+								listCoreSwitchConnectPair = entry.getValue();
+						// sort list Core switch
+						listCoreSwitchConnectPair = sortListSwitch(listCoreSwitchConnectPair);
+						// iterator core switch
+						for (SubstrateSwitch coreSwitch : listCoreSwitchConnectPair) {
+							LinkedList<SubstrateSwitch> path = new LinkedList<>();
+							path.add(edgeSwitch1);
+							path.add(startAggSwitch);
+							path.add(coreSwitch);
+							path.add(endAggSwitch);
+							path.add(edgeSwitch2);
+							if (vLink.getBandwidthRequest() > getBanwidthOfPath(path, listLinkBandwidth))
+								continue;
+							else {
+								double temp = 0;
+								listPathMapped.put(vLink, path);
+								if(resultsLinkMapping.containsKey(path))
+									temp= resultsLinkMapping.get(path);
+								resultsLinkMapping.put(path, vLink.getBandwidthRequest()+temp);
+								listLinkBandwidth = MapLink(path, listLinkBandwidth, vLink.getBandwidthRequest());
+								numLinkSuccessOur++;
+								
+								LinkedList<LinkPhyEdge> phyEdge = new LinkedList<>();
+								phyEdge.add(phy2Edge1);
+								phyEdge.add(phy2Edge2);
+								listPhyEdgeMapped.put(vLink, phyEdge);
+								phy2Edge1.setBandwidth(phy2Edge1.getBandwidth()-vLink.getBandwidthRequest());
+								phy2Edge2.setBandwidth(phy2Edge2.getBandwidth()-vLink.getBandwidthRequest());
+								edgeSwitch1.setPort(getSwitchFromID(listPhySwitch, phy1.getName()), vLink.getBandwidthRequest());
+								edgeSwitch2.setPort(getSwitchFromID(listPhySwitch, phy2.getName()), vLink.getBandwidthRequest());
+								if(listBandwidthPhyEdge.containsKey(phy2Edge1)){
+									listBandwidthPhyEdge.put(phy2Edge1, listBandwidthPhyEdge.get(phy2Edge1) + vLink.getBandwidthRequest());
+								} else {
+									listBandwidthPhyEdge.put(phy2Edge1, vLink.getBandwidthRequest());
+								}
+								
+								if(listBandwidthPhyEdge.containsKey(phy2Edge2)) {
+									listBandwidthPhyEdge.put(phy2Edge2, listBandwidthPhyEdge.get(phy2Edge2) + vLink.getBandwidthRequest());
+								}else {
+									listBandwidthPhyEdge.put(phy2Edge2, vLink.getBandwidthRequest());
+								}
+								check = true;
+								break;
+							}
+						}
+						if(check)
+							break;
+					}
+				}
+			}
+
+		}
+
+		topo.setLinkBandwidth(listLinkBandwidth);
+		topo.setListLinkPhyEdge(listPhyEdge);
+		if (numLinkSuccessOur == listVirLink.size()) {
+			isSuccess = true;
+			//topo = updatePortSwitch(topo, resultsLinkMapping);
+			//topo= updatePortPhyEdge(topo);
+			powerConsumed = getPower(topo)-powerTemp;
+		} else
+		{
+			isSuccess = false;
+			topo= reverseLinkMapping(topo, resultsLinkMapping);
+			reversePhyLinkMapping(topo);
+		}
+		return topo;
+	}	
 	public Topology linkMappingOurAlgorithm(Topology topo, VDCRequest vdc,
 			Map<VirtualMachine, PhysicalServer> resultsVMMapping, SubstrateNetwork coreTopo) {
 		this.coreTopo = coreTopo;

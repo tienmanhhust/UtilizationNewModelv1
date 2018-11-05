@@ -68,19 +68,19 @@ public class Mapping {
 	////
 	private Topology topoNew;
 	private FatTree fatTreeNew;
-	
+
 	private Topology topoNewBig;
 	private FatTree fatTreeNewBig;
-	
+
 	private Map<VDCRequest, Topology> resultTopo;
 	private Map<VDCRequest, Topology> resultTopoNew;
 
 	private Map<VDCRequest, Topology> resultTopo0;
 	private Map<VDCRequest, Topology> resultTopoNewBig;
-	
+
 	private Map<Integer, Topology> listTopo;
 	private Map<Integer, Topology> listTopo0;
-	
+
 	private Map<Topology, SubstrateSwitch> listCoreToSubTopo;
 	private Map<Topology, SubstrateSwitch> listCoreToSubTopoNew;
 
@@ -89,29 +89,28 @@ public class Mapping {
 
 	private VMMapping vmMapping;
 	private LinkMapping linkMapping;
-	
+
 	private VMMapping vmMapping0;
 	private LinkMapping linkMapping0;
-	
+
 	private VMMapping vmMappingNew;
 	private LinkMapping linkMappingNew;
 
 	private VMMapping vmMappingNewBig;
 	private LinkMapping linkMappingNewBig;
-	
+
 	private Map<Integer, Map<VirtualMachine, PhysicalServer>> mappingResults;
 	private Map<Integer, Map<VirtualMachine, PhysicalServer>> mappingResultsNew;
 
 	private Map<Integer, Map<VirtualMachine, PhysicalServer>> mappingResults0;
 	private Map<Integer, Map<VirtualMachine, PhysicalServer>> mappingResultsNewBig;
-	
-	
+
 	private Map<Integer, Map<LinkedList<SubstrateSwitch>, Double>> linkMappingResults;
 	private Map<Integer, Map<LinkedList<SubstrateSwitch>, Double>> linkMappingResultsNew;
 
 	private Map<Integer, Map<LinkedList<SubstrateSwitch>, Double>> linkMappingResults0;
 	private Map<Integer, Map<LinkedList<SubstrateSwitch>, Double>> linkMappingResultsNewBig;
-	
+
 	private Map<Integer, Map<LinkedList<SubstrateSwitch>, Double>> linkMappingResultsCore;
 	private Map<Integer, Map<LinkedList<SubstrateSwitch>, Double>> linkMappingResultsCoreNew;
 
@@ -121,7 +120,10 @@ public class Mapping {
 	private Map<Integer, Map<VirtualLink, LinkedList<LinkPhyEdge>>> listPhyEdgeMapped;
 	private Map<VDCRequest, Topology> tempMapping;
 	private Map<VDCRequest, Topology> tempMappingNew;
-
+	private Map<VDCRequest, Topology> tempMapping0;
+	private Map<VDCRequest, Topology> tempMappingNewBig;
+	
+	
 	private Map<Topology, FatTree> listFatTree;
 	private Map<Topology, FatTree> listFatTreeBig;
 	private Map<Topology, FatTree> listFatTree0;
@@ -132,18 +134,18 @@ public class Mapping {
 
 	private Map<Integer, Map<LinkPhyEdge, Double>> linkPhyEdge0;
 	private Map<Integer, Map<LinkPhyEdge, Double>> linkPhyEdgeNewBig;
-	
+
 	private double numSuccess;
 	private double numSuccessNew;
 	private double numSuccess0;
 	private double numSuccessNewBig;
-	
+
 	private LinkedList<Integer> idVDCIteratored;
 	private LinkedList<Integer> idVDCIteratoredNew;
 
 	private LinkedList<Integer> idVDCIteratored0;
 	private LinkedList<Integer> idVDCIteratoredNewBig;
-	
+
 	private double powerOur;
 	private double powerOurNewSum;
 	private double powerOurK4;
@@ -153,10 +155,10 @@ public class Mapping {
 
 	private double powerOurNew;
 	private double powerOurNewNew;
-	
+
 	private double powerOur0;
 	private double powerOurNewBig;
-	
+
 	private LinkedList<VDCRequest> listMapping;
 	private LinkedList<VDCRequest> listMappingNew;
 	private LinkedList<VDCRequest> listMapping0;
@@ -171,11 +173,11 @@ public class Mapping {
 	public Mapping() {
 		listTopo = new HashMap<>();
 		listTopo0 = new HashMap<>();
-		
+
 		listCoreToSubTopo = new HashMap<>();
 		fatTree = new FatTree();
 		fatTree00 = new FatTree();
-		
+
 		topo = new Topology();
 		topoNew = new Topology();
 
@@ -184,12 +186,12 @@ public class Mapping {
 		topo02 = new Topology();
 		topo03 = new Topology();
 		topoNewBig = new Topology();
-		
+
 		fatTree1 = new FatTree();
 		fatTree2 = new FatTree();
 		fatTree3 = new FatTree();
 		fatTreeNew = new FatTree();
-		
+
 		fatTree01 = new FatTree();
 		fatTree02 = new FatTree();
 		fatTree03 = new FatTree();
@@ -208,7 +210,7 @@ public class Mapping {
 		mappingResultsNew = new HashMap<>();
 		mappingResults0 = new HashMap<>();
 		mappingResultsNewBig = new HashMap<>();
-		
+
 		numSuccess = 0;
 		numSuccess0 = 0;
 		numSuccessNew = 0;
@@ -217,7 +219,7 @@ public class Mapping {
 		idVDCIteratoredNew = new LinkedList<>();
 		idVDCIteratored0 = new LinkedList<>();
 		idVDCIteratoredNewBig = new LinkedList<>();
-		
+
 		listMapping = new LinkedList<>();
 		listMappingNew = new LinkedList<>();
 		listMapping0 = new LinkedList<>();
@@ -225,10 +227,10 @@ public class Mapping {
 		linkPhyEdge = new HashMap<>();
 		linkPhyEdge0 = new HashMap<>();
 		linkPhyEdgeNewBig = new HashMap<>();
-		
+
 		powerOur0 = 0;
 		powerOurNewBig = 0;
-		
+
 		powerOur = 0;
 		powerOurNewSum = 0;
 		powerOurNew = 0;
@@ -242,16 +244,17 @@ public class Mapping {
 
 		linkMappingResults0 = new HashMap<>();
 		linkMappingResultsNewBig = new HashMap<>();
-		
-		
+
 		listPathMapped = new HashMap<>();
 		listPhyEdgeMapped = new HashMap<>();
 		tempMapping = new HashMap<>();
 		tempMappingNew = new HashMap<>();
+		tempMapping0 = new HashMap<>();
+		tempMappingNewBig = new HashMap<>();
 		listFatTree = new HashMap<>();
 		listFatTree0 = new HashMap<>();
 		listFatTreeBig = new HashMap<>();
-		
+
 		resultTopo = new HashMap<>();
 		resultTopoNew = new HashMap<>();
 		resultTopo0 = new HashMap<>();
@@ -271,7 +274,6 @@ public class Mapping {
 
 	public void run(int percent, int numberVMMax) {
 
-
 		// For Distributed
 		// Generate environment simulation
 		topo = fatTree.genFatTree(8);
@@ -279,7 +281,7 @@ public class Mapping {
 		topo2 = fatTree2.genFatTree(6);
 		topo3 = fatTree3.genFatTree(4);
 		topoNew = fatTreeNew.genFatTree(10);
-		
+
 		topo00 = fatTree.genFatTree(8);
 		topo01 = fatTree1.genFatTree(6);
 		topo02 = fatTree2.genFatTree(6);
@@ -290,12 +292,11 @@ public class Mapping {
 		listFatTree.put(topo2, fatTree2);
 		listFatTree.put(topo3, fatTree3);
 
-		listFatTree0.put(topo00, fatTree00);
-		listFatTree0.put(topo01, fatTree01);
-		listFatTree0.put(topo02, fatTree02);
 		listFatTree0.put(topo03, fatTree03);
-		
-		
+		listFatTree0.put(topo03, fatTree02);
+		listFatTree0.put(topo01, fatTree01);
+		listFatTree0.put(topo00, fatTree00);
+
 		GenSubstrateNetwork genSub = new GenSubstrateNetwork(8, 0.5, 0.5);
 		GenSubstrateNetwork genSubNew = new GenSubstrateNetwork(8, 0.5, 0.5);
 		coreTopo = genSub.genAbileneTopo();
@@ -436,8 +437,9 @@ public class Mapping {
 				timeAcceptedGH = 0, utilGH = 0, numberVMAcceptedGH = 0, timeAcceptedSN = 0, utilSN = 0,
 				numberVMAcceptedSN = 0, timeAcceptedMig = 0, utilMig = 0, numberVMAcceptedMig = 0, timeAcceptedJoin = 0,
 				utilJoin = 0, numberVMAcceptedJoin = 0, timeAcceptedLeave = 0, utilLeave = 0, numberVMAcceptedLeave = 0,
-				timeAcceptedMix = 0, utilMix = 0, numberVMAcceptedMix = 0, timeAcceptedOurNew = 0, timeAcceptedOur0 = 0 , timeAcceptedOurNewBig= 0, timeArriveNew = 0,
-				numberVMArriveNew = 0, utilOurNew = 0, utilOurNewBig =0, utilOur0 = 0,numberVMAcceptedOurNew = 0, numberVMAcceptedOur0= 0, numberVMAcceptedOurNewBig = 0;
+				timeAcceptedMix = 0, utilMix = 0, numberVMAcceptedMix = 0, timeAcceptedOurNew = 0, timeAcceptedOur0 = 0,
+				timeAcceptedOurNewBig = 0, timeArriveNew = 0, numberVMArriveNew = 0, utilOurNew = 0, utilOurNewBig = 0,
+				utilOur0 = 0, numberVMAcceptedOurNew = 0, numberVMAcceptedOur0 = 0, numberVMAcceptedOurNewBig = 0;
 		timeNext = 2;
 		C = 3 * (K * K * K);
 
@@ -469,7 +471,6 @@ public class Mapping {
 			numberVMOur0 = getNumVmAlive(listMapping0);
 			numberVMOurNewBig = getNumVmAlive(listMappingNewBig);
 
-
 			if (numberVMOur != 0) {
 				powerOurNew += (powerEdgeOur * (timeCurrent - previousTimeOur)) / listMapping.size();
 
@@ -478,7 +479,7 @@ public class Mapping {
 				powerOurNewNew += (powerEdgeOurNew * (timeCurrent - previousTimeOur)) / listMappingNew.size();
 			}
 			if (numberVMOur0 != 0) {
-				powerOurNew += (powerEdgeOur * (timeCurrent - previousTimeOur)) / listMapping.size();
+				powerOur0 += (powerEdgeOur * (timeCurrent - previousTimeOur)) / listMapping0.size();
 
 			}
 			if (numberVMOurNewBig != 0) {
@@ -495,34 +496,25 @@ public class Mapping {
 						checkExpriedVDC(vdc);
 						listMapping.remove(vdc);
 					}
-
-				}
-				if (listMappingNew.contains(vdc)) {
 					if (listMappingNew.contains(vdc)) {
 						checkExpriedVDCNew(vdc);
+						listMappingNew.remove(vdc);
+					}
+					if (listMappingNewBig.contains(vdc)) {
+						checkExpriedVDCNewBig(vdc);
+						listMappingNewBig.remove(vdc);
+					}
+					if (listMapping0.contains(vdc)) {
+						checkExpriedVDC0(vdc);
+						listMappingNewBig.remove(vdc);
 					}
 				}
+
 			}
 			for (VDCRequest vdc : listVDC) {
 				// If vdc join
 				if (vdc.getStartTime() == timeCurrent) {
 
-					double util = (topoNew.getUtilzation() + coreTopoNew.getUtilizationByBW())
-							/ (topoNew.getTotalBW() + coreTopoNew.getTotal());
-					for (int i = 0; i < numberCentralized.length; i++) {
-						if (util > 5 * (2 * i + 1) && util < (2 * i + 3) * 5) {
-							numberCentralized[i]++;
-							System.out.println("numb " + numberCentralized[i] + " " + i);
-						}
-					}
-
-					double util1 = (topo.getUtilzation() + coreTopo.getUtilizationByBW())
-							/ (topo.getTotalBW() + coreTopo.getTotal());
-					for (int i = 0; i < numberCentralized.length; i++) {
-						if (util1 > 5 * (2 * i + 1) && util1 < (2 * i + 3) * 5) {
-							numberDistributed[i]++;
-						}
-					}
 
 					if (vdc.getEndTime() > timeWindow)
 						timeArrive += ((timeWindow - vdc.getStartTime()) * vdc.getNumVM());
@@ -546,6 +538,20 @@ public class Mapping {
 							timeAcceptedOurNew += (vdc.getLifeTime() * vdc.getNumVM());
 						numberVMAcceptedOurNew += vdc.getNumVM();
 					}
+					if (runOurPlus0(vdc)) {
+						if (vdc.getEndTime() > timeWindow)
+							timeAcceptedOur0 += ((timeWindow - vdc.getStartTime()) * vdc.getNumVM());
+						else
+							timeAcceptedOur0 += (vdc.getLifeTime() * vdc.getNumVM());
+						numberVMAcceptedOur0 += vdc.getNumVM();
+					}
+					if (runOurNewBig(vdc,topoNewBig,fatTreeNewBig)) {
+						if (vdc.getEndTime() > timeWindow)
+							timeAcceptedOurNewBig += ((timeWindow - vdc.getStartTime()) * vdc.getNumVM());
+						else
+							timeAcceptedOurNewBig += (vdc.getLifeTime() * vdc.getNumVM());
+						numberVMAcceptedOurNewBig += vdc.getNumVM();
+					}
 				}
 				//
 
@@ -566,8 +572,10 @@ public class Mapping {
 		}
 		// System.out.println("Number VM " + numberVMAcceptedOur + " " +
 		// numberVMArrive);
-		MainController.resultAcceptionRate.info("" + load + "\t" + utilOur + "\t" + utilOurNew +  "\t" + numberVMAcceptedOur / numberVMArrive
-				+ "\t" + numberVMAcceptedOurNew / numberVMArrive+"/t" +getNumSuccess()*1.0/listVDCRequest.size()+"/t" + getNumSuccessNew()*1.0/listVDCRequest.size());
+		MainController.resultAcceptionRate.info(
+				"" + load + "\t" + utilOur + "\t" + utilOurNew + "\t" + numberVMAcceptedOur / numberVMArrive + "\t"
+						+ numberVMAcceptedOurNew / numberVMArrive + "/t" + getNumSuccess() * 1.0 / listVDCRequest.size()
+						+ "/t" + getNumSuccessNew() * 1.0 / listVDCRequest.size());
 		MainController.resultPowerPerVDC
 				.info("" + load + "\t" + utilOur + "\t" + getPowerOurNew() + "\t" + getPowerOurNewNew());
 		MainController.resultPowerConsumption.info(
@@ -604,17 +612,6 @@ public class Mapping {
 			Topology topo = listSubSwitchToCore.get(entry.getKey());
 			if (runOur(vdc, topo, listFatTree.get(topo), entry.getKey())) {
 				resultTopo.put(vdc, topo);
-				double util = (topo.getLinkBandwidthTopo() + coreTopo.getUtilizationByBW())
-						/ (topo.getTotalBW() + coreTopo.getTotal());
-				// System.out.println("Util: " + topo.getUtilzation() + "-" +
-				// coreTopo.getUtilizationByBW() + "-"
-				// + topo.getTotalBW() + "-" + coreTopo.getTotal());
-				for (int i = 0; i < acceptDistributed.length; i++) {
-					if (util > 5 * (2 * i + 1) && util < (2 * i + 3) * 5) {
-						acceptDistributed[i]++;
-						System.out.println("acc " + acceptDistributed[i] + " " + i);
-					}
-				}
 				isSuccess = true;
 				break;
 			} else {
@@ -631,20 +628,35 @@ public class Mapping {
 		SubstrateSwitch ingressSwitch = coreTopoNew.getListSubSwitch().get(indexIngress);
 		if (runOurNew(vdc, topoNew, fatTreeNew, isPrint, ingressSwitch)) {
 			resultTopoNew.put(vdc, topoNew);
-			double util = (topoNew.getUtilzation() + coreTopoNew.getUtilizationByBW())
-					/ (topoNew.getTotalBW() + coreTopoNew.getTotal());
-			for (int i = 0; i < acceptCentralized.length; i++) {
-				if (util > 5 * (2 * i + 1) && util < (2 * i + 3) * 5) {
-					acceptCentralized[i]++;
-				}
-			}
-
 			isSuccess = true;
 		} else {
 			isSuccess = false;
 		}
 
 		return isSuccess;
+
+	}
+	
+	public boolean runOurPlus0(VDCRequest vdc) {
+		boolean isSuccess = false;
+		boolean isPrint = true;
+		int indexIngress = listVDCRequest.get(vdc);
+//		SubstrateSwitch ingressSwitch = coreTopoNew.getListSubSwitch().get(indexIngress);
+		for(Entry<Topology,FatTree> entry : listFatTree0.entrySet()){
+			
+			if (runOur0(vdc, entry.getKey(), entry.getValue())) {
+				resultTopo0.put(vdc, topo);
+				isSuccess = true;
+				break;
+			} else {
+				isSuccess = false;
+			}
+
+		
+		}
+		return isSuccess;
+		
+
 
 	}
 
@@ -879,6 +891,169 @@ public class Mapping {
 		}
 		return mapSuccess;
 	}
+	
+	public boolean runOurNewBig(VDCRequest vdc, Topology topo, FatTree fatTree) {
+
+		boolean mapSuccess = false;
+		vmMappingNewBig = new VMMapping();
+		linkMappingNewBig = new LinkMapping();
+		linkMappingNewBig.setIngressSwitch(null);
+		boolean isNodeMapping = false;
+		// System.out.println("IngressSwitch " +
+		// ingressSwitc.getNameSubstrateSwitch());
+		topo = vmMappingNewBig.run(vdc, topo, fatTree);
+		if (vmMappingNew.isSuccess()) {
+			isNodeMapping = true;
+			// System.out.println("VM Mapping SUccess ");
+			topo = linkMappingNewBig.linkMappingOurAlgorithmOld(topo, vdc, vmMappingNewBig.getMappingResults());
+			if (linkMappingNewBig.isSuccess()) {
+				// SysteNumber VMm.out.println("VM Mapping ");
+				mapSuccess = true;
+				numSuccessNewBig++;
+				mappingResultsNewBig.put(vdc.getVdcID(), vmMappingNewBig.getMappingResults());
+				tempMappingNewBig.put(vdc, topo);
+				linkMappingResultsNewBig.put(vdc.getVdcID(), linkMappingNewBig.getResultsLinkMapping()); // linkMapping
+																								// Results
+//				linkMappingResultsCoreNEw.put(vdc.getVdcID(), linkMappingNewBig.getResultsLinkMappingCore());
+				linkPhyEdgeNewBig.put(vdc.getVdcID(), linkMappingNewBig.getListBandwidthPhyEdge()); // link
+																						// Phy-Edge
+				listMappingNewBig.add(vdc);
+				// printLogResultMapping(topo, MainController.logHEAE, vdc,
+				// mappingResults.get(vdc.getVdcID()),
+				// linkMapping.getListPathMapped());
+
+			} else {
+
+				topo = removeVMMapping(vmMappingNewBig.getMappingResults(), topo);
+				Map<Integer, LinkedList<PhysicalServer>> listPhyPre = vmMappingNewBig.getListExceptPhy();
+				listPhyPre.put(listPhyPre.size() + 1, vmMappingNewBig.getListPhyMaped());
+				boolean check = false;
+				do {
+					VMMapping vmMappingNext = new VMMapping();
+					vmMappingNext.setListExceptPhy(listPhyPre);
+					topo = vmMappingNext.run(vdc, topo, fatTree);
+					LinkMapping linkMappingNext = new LinkMapping();
+					linkMappingNext.setIngressSwitch(null);
+					if (vmMappingNext.isSuccess()) {
+						isNodeMapping = true;
+						topo = linkMappingNext.linkMappingOurAlgorithmOld(topo, vdc, vmMappingNext.getMappingResults());
+						if (linkMappingNext.isSuccess()) {
+							mapSuccess = true;
+							numSuccessNewBig++;
+							mappingResultsNewBig.put(vdc.getVdcID(), vmMappingNext.getMappingResults());
+							linkMappingResultsNewBig.put(vdc.getVdcID(), linkMappingNext.getResultsLinkMapping()); // linkMapping
+//							linkMappingResultsCoreNewBig.put(vdc.getVdcID(), linkMapping.getResultsLinkMappingCore());
+							tempMappingNewBig.put(vdc, topo);
+							// Results
+							linkPhyEdgeNewBig.put(vdc.getVdcID(), linkMappingNext.getListBandwidthPhyEdge()); // link
+																										// Phy-Edge
+							listMappingNewBig.add(vdc);
+
+							break;
+						} else
+							check = true;
+					}
+
+					if (vmMappingNext.getMappingResults().isEmpty()) {
+						if (isNodeMapping) {
+							// MainController.logMappingDistributed.info("L");
+						} else {
+							// MainController.logMappingDistributed.info("N");
+						}
+						break;
+					}
+					topo = removeVMMapping(vmMappingNext.getMappingResults(), topo);
+					listPhyPre = vmMappingNext.getListExceptPhy();
+					listPhyPre.put(listPhyPre.size() + 1, vmMappingNext.getListPhyMaped());
+				} while (check);
+			}
+
+		} else {
+			// MainController.logMappingDistributed.info("N");
+		}
+		return mapSuccess;
+	}
+	public boolean runOur0(VDCRequest vdc, Topology topo, FatTree fatTree) {
+
+		boolean mapSuccess = false;
+		vmMapping0 = new VMMapping();
+		linkMapping0 = new LinkMapping();
+		linkMapping0.setIngressSwitch(null);
+		boolean isNodeMapping = false;
+		// System.out.println("IngressSwitch " +
+		// ingressSwitc.getNameSubstrateSwitch());
+		topo = vmMapping0.run(vdc, topo, fatTree);
+		if (vmMapping0.isSuccess()) {
+			isNodeMapping = true;
+			// System.out.println("VM Mapping SUccess ");
+			topo = linkMappingNewBig.linkMappingOurAlgorithmOld(topo, vdc, vmMappingNewBig.getMappingResults());
+			if (linkMappingNewBig.isSuccess()) {
+				// SysteNumber VMm.out.println("VM Mapping ");
+				mapSuccess = true;
+				numSuccessNewBig++;
+				mappingResultsNewBig.put(vdc.getVdcID(), vmMappingNewBig.getMappingResults());
+				tempMappingNewBig.put(vdc, topo);
+				linkMappingResultsNewBig.put(vdc.getVdcID(), linkMappingNewBig.getResultsLinkMapping()); // linkMapping
+																								// Results
+//				linkMappingResultsCoreNEw.put(vdc.getVdcID(), linkMappingNewBig.getResultsLinkMappingCore());
+				linkPhyEdgeNewBig.put(vdc.getVdcID(), linkMappingNewBig.getListBandwidthPhyEdge()); // link
+																						// Phy-Edge
+				listMappingNewBig.add(vdc);
+				// printLogResultMapping(topo, MainController.logHEAE, vdc,
+				// mappingResults.get(vdc.getVdcID()),
+				// linkMapping.getListPathMapped());
+
+			} else {
+
+				topo = removeVMMapping(vmMappingNewBig.getMappingResults(), topo);
+				Map<Integer, LinkedList<PhysicalServer>> listPhyPre = vmMappingNewBig.getListExceptPhy();
+				listPhyPre.put(listPhyPre.size() + 1, vmMappingNewBig.getListPhyMaped());
+				boolean check = false;
+				do {
+					VMMapping vmMappingNext = new VMMapping();
+					vmMappingNext.setListExceptPhy(listPhyPre);
+					topo = vmMappingNext.run(vdc, topo, fatTree);
+					LinkMapping linkMappingNext = new LinkMapping();
+					linkMappingNext.setIngressSwitch(null);
+					if (vmMappingNext.isSuccess()) {
+						isNodeMapping = true;
+						topo = linkMappingNext.linkMappingOurAlgorithmOld(topo, vdc, vmMappingNext.getMappingResults());
+						if (linkMappingNext.isSuccess()) {
+							mapSuccess = true;
+							numSuccessNewBig++;
+							mappingResultsNewBig.put(vdc.getVdcID(), vmMappingNext.getMappingResults());
+							linkMappingResultsNewBig.put(vdc.getVdcID(), linkMappingNext.getResultsLinkMapping()); // linkMapping
+//							linkMappingResultsCoreNewBig.put(vdc.getVdcID(), linkMapping.getResultsLinkMappingCore());
+							tempMappingNewBig.put(vdc, topo);
+							// Results
+							linkPhyEdgeNewBig.put(vdc.getVdcID(), linkMappingNext.getListBandwidthPhyEdge()); // link
+																										// Phy-Edge
+							listMappingNewBig.add(vdc);
+
+							break;
+						} else
+							check = true;
+					}
+
+					if (vmMappingNext.getMappingResults().isEmpty()) {
+						if (isNodeMapping) {
+							// MainController.logMappingDistributed.info("L");
+						} else {
+							// MainController.logMappingDistributed.info("N");
+						}
+						break;
+					}
+					topo = removeVMMapping(vmMappingNext.getMappingResults(), topo);
+					listPhyPre = vmMappingNext.getListExceptPhy();
+					listPhyPre.put(listPhyPre.size() + 1, vmMappingNext.getListPhyMaped());
+				} while (check);
+			}
+
+		} else {
+			// MainController.logMappingDistributed.info("N");
+		}
+		return mapSuccess;
+	}
 
 	public boolean runRemap(LinkedList<VDCRequest> listVdc, Topology topo, FatTree fatTree,
 			HashMap<Integer, Map<VirtualMachine, PhysicalServer>> mappingResults,
@@ -1016,6 +1191,75 @@ public class Mapping {
 		// printLogTopo(topo, MainController.logHEAE);
 	}
 
+	public void checkExpriedVDCNewBig(VDCRequest vdc) {
+		Topology topo = tempMappingNewBig.get(vdc);
+		if (mappingResultsNewBig.containsKey(vdc.getVdcID())) {
+			idVDCIteratoredNewBig.add(vdc.getVdcID());
+			Map<VirtualMachine, PhysicalServer> result = mappingResultsNewBig.get(vdc.getVdcID());
+			for (Entry<VirtualMachine, PhysicalServer> entry : result.entrySet()) {
+				VirtualMachine vir = entry.getKey();
+				PhysicalServer phy = entry.getValue();
+				phy.setCpu(phy.getCpu() + vir.getCPU());
+				phy.setRam(phy.getRam() + vir.getMemory());
+			}
+			mappingResultsNewBig.remove(vdc.getVdcID());
+		}
+
+		// return link bandwidth
+		if (linkMappingResultsNewBig.containsKey(vdc.getVdcID())) {
+			LinkedList<SubstrateLink> listLinkBandwidth = topo.getLinkBandwidth();
+			Map<LinkedList<SubstrateSwitch>, Double> resultLink = linkMappingResultsNewBig.get(vdc.getVdcID());
+			for (Entry<LinkedList<SubstrateSwitch>, Double> entry : resultLink.entrySet()) {
+				LinkedList<SubstrateSwitch> path = entry.getKey();
+				double bandwidth = entry.getValue();
+				for (int i = 0; i < path.size() - 1; i++) {
+					SubstrateSwitch switch1 = path.get(i);
+					SubstrateSwitch switch2 = path.get(i + 1);
+					switch1.setPort(switch2, -bandwidth);
+					switch2.setPort(switch1, -bandwidth);
+					int c = 0;
+					for (int j = 0; j < listLinkBandwidth.size(); j++) {
+						SubstrateLink link = listLinkBandwidth.get(j);
+						// update bandwidth, two-direction
+						if (link.getStartSwitch().equals(switch1) && link.getEndSwitch().equals(switch2)) {
+							link.setBandwidth(link.getBandwidth() + bandwidth);
+							listLinkBandwidth.set(j, link);
+							c++;
+							if (c == 2)
+								break;
+						}
+						if (link.getStartSwitch().equals(switch2) && link.getEndSwitch().equals(switch1)) {
+							link.setBandwidth(link.getBandwidth() + bandwidth);
+							listLinkBandwidth.set(j, link);
+							c++;
+							if (c == 2)
+								break;
+						}
+
+					}
+				}
+			}
+			// topo.setLinkBandwidth(listLinkBandwidth);
+			// topo.setListSwitch(listSwitch);
+			linkMappingResultsNewBig.remove(vdc.getVdcID());
+		}
+
+		// return link bandwidth phy->edge
+		if (linkPhyEdgeNewBig.containsKey(vdc.getVdcID())) {
+			LinkedList<SubstrateSwitch> listPhySwitch = topo.getListPhySwitch();
+			Map<LinkPhyEdge, Double> listLinkPhyEdge = linkPhyEdgeNewBig.get(vdc.getVdcID());
+			for (LinkPhyEdge link : listLinkPhyEdge.keySet()) {
+				PhysicalServer phy = link.getPhysicalServer();
+				SubstrateSwitch edge = link.getEdgeSwitch();
+				double bandwidth = listLinkPhyEdge.get(link);
+				edge.setPort(getSwitchFromID(listPhySwitch, phy.getName()), 0 - bandwidth);
+				link.setBandwidth(link.getBandwidth() + bandwidth);
+			}
+			linkPhyEdgeNewBig.remove(vdc.getVdcID());
+		}
+//		checkExpriedVDCCoreNew(vdc);
+
+	}
 	public void checkExpriedVDCNew(VDCRequest vdc) {
 		Topology topo = tempMappingNew.get(vdc);
 		if (mappingResultsNew.containsKey(vdc.getVdcID())) {
@@ -1087,7 +1331,79 @@ public class Mapping {
 		// MainController.logHEAE.info("TOPOLOGY AFTER VDC EXPRIED");
 		// printLogTopo(topo, MainController.logHEAE);
 	}
+	
+	public void checkExpriedVDC0(VDCRequest vdc) {
+		
+		Topology topo = tempMapping0.get(vdc);
+		if (mappingResults0.containsKey(vdc.getVdcID())) {
+			idVDCIteratored0.add(vdc.getVdcID());
+			Map<VirtualMachine, PhysicalServer> result = mappingResults0.get(vdc.getVdcID());
+			for (Entry<VirtualMachine, PhysicalServer> entry : result.entrySet()) {
+				VirtualMachine vir = entry.getKey();
+				PhysicalServer phy = entry.getValue();
+				phy.setCpu(phy.getCpu() + vir.getCPU());
+				phy.setRam(phy.getRam() + vir.getMemory());
+			}
+			mappingResults0.remove(vdc.getVdcID());
+		}
 
+		// return link bandwidth
+		if (linkMappingResults0.containsKey(vdc.getVdcID())) {
+			LinkedList<SubstrateLink> listLinkBandwidth = topo.getLinkBandwidth();
+			Map<LinkedList<SubstrateSwitch>, Double> resultLink = linkMappingResults0.get(vdc.getVdcID());
+			for (Entry<LinkedList<SubstrateSwitch>, Double> entry : resultLink.entrySet()) {
+				LinkedList<SubstrateSwitch> path = entry.getKey();
+				double bandwidth = entry.getValue();
+				for (int i = 0; i < path.size() - 1; i++) {
+					SubstrateSwitch switch1 = path.get(i);
+					SubstrateSwitch switch2 = path.get(i + 1);
+					switch1.setPort(switch2, -bandwidth);
+					switch2.setPort(switch1, -bandwidth);
+					int c = 0;
+					for (int j = 0; j < listLinkBandwidth.size(); j++) {
+						SubstrateLink link = listLinkBandwidth.get(j);
+						// update bandwidth, two-direction
+						if (link.getStartSwitch().equals(switch1) && link.getEndSwitch().equals(switch2)) {
+							link.setBandwidth(link.getBandwidth() + bandwidth);
+							listLinkBandwidth.set(j, link);
+							c++;
+							if (c == 2)
+								break;
+						}
+						if (link.getStartSwitch().equals(switch2) && link.getEndSwitch().equals(switch1)) {
+							link.setBandwidth(link.getBandwidth() + bandwidth);
+							listLinkBandwidth.set(j, link);
+							c++;
+							if (c == 2)
+								break;
+						}
+
+					}
+				}
+			}
+			// topo.setLinkBandwidth(listLinkBandwidth);
+			// topo.setListSwitch(listSwitch);
+			linkMappingResults0.remove(vdc.getVdcID());
+		}
+
+		// return link bandwidth phy->edge
+		if (linkPhyEdge0.containsKey(vdc.getVdcID())) {
+			LinkedList<SubstrateSwitch> listPhySwitch = topo.getListPhySwitch();
+			Map<LinkPhyEdge, Double> listLinkPhyEdge = linkPhyEdge0.get(vdc.getVdcID());
+			for (LinkPhyEdge link : listLinkPhyEdge.keySet()) {
+				PhysicalServer phy = link.getPhysicalServer();
+				SubstrateSwitch edge = link.getEdgeSwitch();
+				double bandwidth = listLinkPhyEdge.get(link);
+				edge.setPort(getSwitchFromID(listPhySwitch, phy.getName()), 0 - bandwidth);
+				link.setBandwidth(link.getBandwidth() + bandwidth);
+			}
+			linkPhyEdge0.remove(vdc.getVdcID());
+		}
+//		checkExpriedVDCCoreNew(vdc);
+
+		// MainController.logHEAE.info("TOPOLOGY AFTER VDC EXPRIED");
+		// printLogTopo(topo, MainController.logHEAE);
+	}
 	public void checkExpriedVDCCore(VDCRequest vdc) {
 
 		// return link bandwidth
